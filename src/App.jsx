@@ -1,18 +1,54 @@
+import React, { useEffect } from 'react';
 import './index.css'
 import Wavesurfer from './components/Wavesurfer'
+import { initializeFirebase } from '../public/kairos/analytics-cookie'
+import CookieConsent, {Cookies} from 'react-cookie-consent'
+
 
 function App() {
 
+    useEffect(() => {
+        if (Cookies.get('BasicAnalyticsConsent') === 'true') {
+            initializeFirebase();
+        }
+    }, []);
+
+    const handleAcceptCookies = () => {
+        Cookies.set('BasicAnalyticsConsent', 'true', { path: '/', expires: 365 });
+        initializeFirebase();
+    };
+
+    const handleDeclineCookies = () => {
+        Cookies.set('BasicAnalyticsConsent', 'false', { path: '/', expires: 7});
+    }
+
   return (
     <>
+        <CookieConsent
+            onAccept={handleAcceptCookies}
+            overlay
+            enableDeclineButton
+            onDecline={handleDeclineCookies}
+            location="bottom"
+            buttonText="Accept"
+            declineButtonText="Decline"
+            declineButtonStyle={{ background: "#9c2821", borderRadius: "4px", padding: "5px 30px" }}
+            cookieName="BasicAnalyticsConsent"
+            style={{ background: "#343434" }}
+            buttonStyle={{ color: "#fff", fontSize: "13px", backgroundColor: "#20994e", borderRadius: "4px", padding: "5px 30px" }}
+            expires={150}
+            >
+            We use anonymous cookies to understand how many visitors we have and how they use our site. Are you okay with this?{" "}
+        </CookieConsent>
+
       {/* preloader */}
-      <div id="preloader">
+      {/* <div id="preloader">
           <div id="loader" className="dots-jump">
               <div></div>
               <div></div>
               <div></div>
           </div>
-      </div>
+      </div> */}
 
 
       <header className="s-header">
@@ -29,7 +65,7 @@ function App() {
                   </ul>
       
                   <div className="header-cta">
-                      <a href="#pricing" className="btn btn--primary header-cta__btn smoothscroll">Get The App</a>
+                      <a href="#pricing" className="btn btn--primary header-cta__btn smoothscroll">Get The AI</a>
                   </div>
               </nav> 
       
@@ -49,22 +85,22 @@ function App() {
 
                   <div className="home-content__left">
                       <h1>
-                      Guided Manifestation Audios.
+                      The World's First Manifestation Audio AI.
                       </h1>
       
                       <h3 style={{color: '#FFFFFFDE'}}>
-                      Manai uses AI to generate guided hypnosis, affirmations, revision, and soon, visualization audios, helping you manifest your unique, ever-evolving  desires. 
+                      Manai allows you to generate guided hypnosis, affirmations and visualization audios to manifest your unique, ever-evolving desires. 
                       </h3>
       
                       <div className="home-content__btn-wrap">
                           <a href="#pricing" className="btn btn--primary home-content__btn smoothscroll">
-                              Get the app
+                              Get the AI
                           </a>
                       </div>
                   </div>
 
                   <div className="home-content__right">
-                      <img src="images/hero-app-screens-800.webp" srcSet="images/hero-app-screens-800.webp 1x, images/hero-app-screens-1600.webp 2x" />
+                      <img src="images/hero-app-screens-800.webp" srcSet="images/hero-app-screens-800.webp 1x, images/hero-app-screens-1600.webp 2x" alt="An image showing the audio library and hypnosis audio generation screens" />
                   </div> 
 
               </div> 
@@ -112,9 +148,8 @@ function App() {
 
                       <p>
                       Manai audios take an average of 6 minutes to generate. 
-                      That's 240x faster than the average hypnotist. Manai also revises
-                      your negative experiences on the spot, keeping your point of attraction
-                      desirable.
+                      That's 240x faster than the average hypnotist. Spend less time waiting,
+                      spend more time deliberately creating your reality!
                       </p>
                   </div>  {/* end about-desc__slide */}
 
@@ -122,9 +157,9 @@ function App() {
                       <h3 className="item-title">Affordable.</h3>
 
                       <p>
-                      Gone are the days where only the elite could afford guided hypnosis audios. 
+                      Gone are the days where only the elite could afford personalized hypnosis audios. 
                       Whereas even mediocre hypnotists easily charge $150 per audio, 
-                      Manai costs up to 89% less.
+                      Manai costs up to 96% less.
                       </p>
                   </div>  {/* end about-desc__slide */}
 
@@ -174,7 +209,7 @@ function App() {
 
                       <div className="col-block step">
                           <h3 className="item-title">Effortless</h3>
-                          <p>There is an incredible amount of manifestation and mindset practices out there. While most of them can have an effect, they require a lot of effort and practice. With guided manifestation audios, you give up on all work. You just need to define what you want, relax, and listen.
+                          <p>There is an incredible amount of manifestation and mindset practices out there. While most of them are effective, they require a lot of effort and practice. With guided manifestation audios, you give up on all work. You just need to define what you want, relax, and listen.
                           </p> 
                       </div>
                 
@@ -197,9 +232,9 @@ function App() {
       </section> {/* end s-about-how */}
 
 
-      {/* features
+      {/* testimonials
       ================================================== */}
-      <section id="features" className="s-features target-section">
+      <section id="testimonials" className="s-testimonials target-section">
 
           <div data-aos="fade-up">
 
@@ -214,30 +249,28 @@ function App() {
                   <div className="col-full slick-slider testimonials__slider">
 
                       <div className="testimonials__slide">
-                          <img src="images/avatars/user-03.jpg" alt="Author image" className="testimonials__avatar" />
+                          <img src="images/avatars/PatriciaDenda.webp" alt="Author Image" className="testimonials__avatar" />
                           
-                          <p>Qui ipsam temporibus quisquam velMaiores eos cumque distinctio nam accusantium ipsum. 
-                          Laudantium quia consequatur molestias delectus culpa facere hic dolores aperiam. Accusantium praesentium corpori.</p>
+                          <p>When I heard about the idea for Manai back in December 2023, I knew that I had to get it and I pre-purchased immediately! Now that it has been developed I can only say this is really good!</p>
 
                           <div className="testimonials__author">
-                              <span className="testimonials__name">Naruto Uzumaki</span>
-                              <a href="#0" className="testimonials__link">@narutouzumaki</a>
+                              <span className="testimonials__name">Patricia M. Denda</span>
+                              <a href="https://www.youtube.com/@patriciadenda" className="testimonials__link" target="_blank">@patriciadenda</a>
                           </div>
                       </div> {/* end testimonials__slide */}
 
                       <div className="testimonials__slide">
-                          <img src="images/avatars/user-05.jpg" alt="Author image" className="testimonials__avatar" />
+                          <img src="images/avatars/coachkimangell.webp" alt="Author image" className="testimonials__avatar" />
                           
-                          <p>Excepturi nam cupiditate culpa doloremque deleniti repellat. Veniam quos repellat voluptas animi adipisci.
-                          Nisi eaque consequatur. Quasi voluptas eius distinctio. Atque eos maxime. Qui ipsam temporibus quisquam vel.</p>
+                          <p>After 12 years of studying manifestation, including time spent as a Buddhist Monk and getting CPD-accredited certifications in both Law of Attraction coaching and Cognitive Behavioral Therapy, I've identified reprogramming the subconscious via hypnosis and managing our vibration via visualization as the most powerful yet challenging tools we have. Manai makes both a breeze!</p>
                           
                           <div className="testimonials__author">
-                              <span className="testimonials__name">Sasuke Uchiha</span>
-                              <a href="#0" className="testimonials__link">@sasukeuchiha</a>
+                              <span className="testimonials__name">Kim Angell</span>
+                              <a href="https://www.fb.com/coachkimangell" className="testimonials__link" target="_blank">@coachkimangell</a>
                           </div>
                       </div> {/* end testimonials__slide */}
 
-                      <div className="testimonials__slide">
+                      {/* <div className="testimonials__slide">
                           <img src="images/avatars/user-01.jpg" alt="Author image" className="testimonials__avatar" />
                           
                           <p>Repellat dignissimos libero. Qui sed at corrupti expedita voluptas odit. Nihil ea quia nesciunt. Ducimus aut sed ipsam.  
@@ -247,15 +280,16 @@ function App() {
                               <span className="testimonials__name">Shikamaru Nara</span>
                               <a href="#0" className="testimonials__link">@shikamarunara</a>
                           </div>
-                      </div> {/* end testimonials__slide */}
+                      </div> end testimonials__slide */}
                       
                   </div> {/* end testimonials__slider */}
 
               </div> {/* end testimonials */}
 
-          </div> {/* end testimonials-wrap */}
+          </div> 
+          {/* end testimonials-wrap */}
 
-      </section> {/* end s-features */}
+      </section> {/* end s-testimonials */}
 
 
       {/* pricing
@@ -268,9 +302,9 @@ function App() {
                     Subscriptions <br />
                   </h1>
                   <p className="lead">
-                      Manai is a browser-based application, so you can use it without any downloads. 
+                      Manai is a browser-based AI, so you can use it without any downloads. 
                       Simply open it in Safari, Chrome, or your favorite browser. 
-                      All you need is a subscription to get started.
+                      All you need is a subscription to get started!
                   </p>
               </div>
           </div> {/* end section-header */}
@@ -281,21 +315,19 @@ function App() {
                   <div className="item-plan__block"> 
 
                       <div className="item-plan__top-part">
-                          <h3 className="item-plan__title">Annual (Late Beta)</h3>
-                          <s className="item-plan__price" style={{color: 'gray', fontSize: '4rem',}}>$1.100</s><br />
-                          <p className="item-plan__price">$550</p><br />
-                          <p className="item-plan__per">Per Year</p>
+                          <h3 className="item-plan__title">The Visualizer</h3>
+                          <p className="item-plan__price">$33</p><br />
+                          <p className="item-plan__per">Per Month</p>
                       </div>
 
                       <div className="item-plan__bottom-part">
                           <ul className="item-plan__features">
-                              <li>Beta Pricing For Life</li>
-                              <li><span>1.000</span> Credits Per Month (8-40 Audios)</li>
-                              <li>Rollover Up To 12.000 Credits</li>
+                              <li><span>400</span> Credits Per Month (~20 Imaginal Act Audios)</li>
+                              <li>Rollover Up To 4.800 Credits</li>
                               <li>Lifetime Audio Storage In Your Manai Audio Library</li>
                           </ul>
 
-                          <a className="btn btn--primary large full-width" href="https://manai.app/register?plan=1000_annual">Subscribe now</a>
+                          <a className="btn btn--primary large full-width" href="https://manai.app/register?plan=400_monthly">Subscribe now</a>
                       </div>  
                   
                   </div>
@@ -306,21 +338,20 @@ function App() {
                   <div className="item-plan__block"> 
 
                       <div className="item-plan__top-part">
-                          <h3 className="item-plan__title">Monthly (Late Beta)</h3>
-                          <s className="item-plan__price" style={{color: 'darkgray', fontSize: '4rem'}}>$110</s><br />
+                          <h3 className="item-plan__title">The Subconscious Programmer</h3>
                           <p className="item-plan__price">$55</p><br />
                           <p className="item-plan__per">Per Month</p>
                       </div>
 
                       <div className="item-plan__bottom-part">
                           <ul className="item-plan__features">
-                              <li>Beta Pricing For Life</li>
-                              <li><span>1.000</span> Credits Per Month (8-40 Audios)</li>
+                              <li><span>1.000</span> Credits Per Month (Up To 8 Hypnosis or Affirmation Audios)</li>
+                              <li>Includes Up To 50 Imaginal Act Audios</li>
                               <li>Rollover Up To 12.000 Credits</li>
                               <li>Lifetime Audio Storage In Your Manai Audio Library</li>
                           </ul>
 
-                          <a className="btn btn--primary large full-width" href="https://manai.app/register?plan=1000_monthly">Subscribe now</a>
+                          <a className="btn btn--primary large full-width white-bg" href="https://manai.app/register?plan=1000_monthly">Subscribe now</a>
                       </div>
                   
                   </div>
@@ -347,9 +378,7 @@ function App() {
                   Manai believes in the power of mindset and manifestation to bring about radical
                   change in people's lives. While we provide a powerful tool to transform mindsets
                   and manifest dreams, our mission extends beyond this as we directly
-                  support manifestation influencers in educating the world. If you are an influencer 
-                  and would like to be an affiliate of Manai — earning 20% recurring commissions and
-                  offering discounts to your audience — apply at our <a>Trackdesk Portal</a>.
+                  support mindset and manifestation influencers in educating the world. 
 
                   </p>
 
@@ -379,8 +408,8 @@ function App() {
                           Fax: (+63) 555 0100
                           </p> */}
                           <p>
-                          Need help or have a question? Contact the founder directly: <br />
-                          <a href="mailto:yourstruly@kimangell.com" className="footer__mail-link">yourstruly@kimangell.com</a>
+                          Need help or have a question? Contact us at
+                          <a href="mailto:support@manai.app" className="footer__mail-link"> public@manai.app</a>
                           </p>
                       </div>
 

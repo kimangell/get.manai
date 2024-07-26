@@ -3,7 +3,7 @@
  *
  * ------------------------------------------------------------------- */
 
-$(document).ready(function() {
+$(function() {
     (function($) {
 
         "use strict";
@@ -51,7 +51,7 @@ $(document).ready(function() {
         var ssMenuOnScrolldown = function() {
             
             var hdr= $('.s-header'),
-                hdrTop = $('.s-header').offset().top;
+                hdrTop = hdr.length > 0 ? hdr.offset().top : 0;
 
             $WIN.on('scroll', function() {
 
@@ -297,7 +297,7 @@ $(document).ready(function() {
         * ------------------------------------------------------ */
         (function clInit() {
 
-            ssPreloader();
+            // ssPreloader();
             ssMenuOnScrolldown();
             ssMobileMenu();
             ssWaypoints();
